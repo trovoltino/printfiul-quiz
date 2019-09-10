@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    <QuizSelector/>
+    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import QuizSelector from '@/components/QuizSelector.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    QuizSelector
+  },
+  data() {
+    return{
+      selectedQuiz: 'bestQuiz'
+    }
   }
 }
 </script>
