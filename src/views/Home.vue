@@ -1,8 +1,6 @@
 <template>
-  <div class="home">
-    
-    <QuizSelector/>
-    
+  <div class="quizSelector">
+      <QuizSelector/>
   </div>
 </template>
 
@@ -14,11 +12,12 @@ export default {
   name: 'home',
   components: {
     QuizSelector
-  },
-  data() {
-    return{
-      selectedQuiz: 'bestQuiz'
-    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.quizSelector {
+  @include center;
+}
+</style>

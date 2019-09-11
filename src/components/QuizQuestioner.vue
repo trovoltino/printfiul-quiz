@@ -1,13 +1,14 @@
 <template>
-  <div class="questions">
-    <div class="question" v-bind:key="question.id" v-for="question in questions">
-      <question v-if="questionToDisplay===question.id" v-bind:question="question"/>
-    </div>
-    <div v-bind:key="answer.id" v-for="answer in answers" @click="addAnswer(answer.id)">
-      <answer v-bind:answer="answer"/>
-    </div>
-    {{quizId}}
+<div class="questions">
+  <div class="question" v-bind:key="question.id" v-for="question in questions">
+    <question v-if="questionToDisplay===question.id" v-bind:question="question"/>
   </div>
+  <div class="answers">
+    <div v-bind:key="answer.id" v-for="answer in answers" @click="addAnswer(answer.id)">
+      <answer class="answer" v-bind:answer="answer"/>
+    </div>
+  </div>
+</div>
 </template>
 <script>
 // @ is an alias to /src
@@ -37,10 +38,12 @@ export default {
     changeQuestion(number){
       this.questionIndex+=number;
       if (this.questionIndex > this.questions.length-1) {
-        this.$router.replace({name:'results', params:{answers:this.userAnswers}});
-      } 
-      this.questionToDisplay = this.questions[this.questionIndex].id;
-      this.getAnswers(this.questionToDisplay);
+        this.$router.replace({name:'results', params:{answers:this.userAnswers, quizId:this.quizId}});
+      } else {
+        this.questionToDisplay = this.questions[this.questionIndex].id;
+        this.getAnswers(this.questionToDisplay);
+      }
+     
     },
     getQuestions(quizId){
       return new Promise((resolve, reject) => {
@@ -84,7 +87,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .questions {
-    color: black;
+.questions {
+  @include center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  
+  &::after{
+    
+    content: '';
+    @include center;
+    
+    height: 30em;
+    width: 54em;
+    border: solid $button-color 2px;
+    z-index: -1;
   }
+  .question {
+    width: 80%;
+    margin-bottom: 0.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  .answers {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 42em;
+    
+    .answer {
+
+      width: 20em;
+      border: 2px solid $button-color;
+      margin: 0.3em;
+      &:hover {
+        background: $button-color;
+        color:white;
+        cursor: pointer;
+      }
+    }
+  }
+}
+  
 </style>

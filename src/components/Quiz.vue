@@ -1,12 +1,7 @@
 <template>
     <div class="quiz-item">
       <h2>{{quiz.title}}</h2>
-      <h3>{{quiz.id}}</h3>
-      
-  
-      
       <!-- <button @click="$emit('del-todog')" class="del">x</button> -->
-        
     </div>
 </template>
 
