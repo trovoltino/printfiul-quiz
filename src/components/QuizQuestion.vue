@@ -24,5 +24,10 @@ export default {
   color:white;
   background: $button-color;
 }
+@media(max-width: 900px){
+.question {
+  font-size: 0.8em;
+}
+}
 </style>
 

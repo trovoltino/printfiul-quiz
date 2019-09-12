@@ -1,7 +1,7 @@
 <template>
   <div class="results">
     <QuizResults v-on:finalResults="quizResults" />
-    <button class="repeat">repeat the quiz</button>
+    <button @click="navigateToHome()" class="repeat">repeat the quiz</button>
   </div>
 </template>
 
@@ -18,6 +18,16 @@ export default {
     return{
       quizResults: 0
     }
+  },
+  methods: {
+    navigateToHome() {
+      this.$router.replace({name:'home'});
+    }
+  },
+  mounted() {
+    if(this.$route.params.submittedAnswers === 'undefined'){
+      this.$router.replace({name:'home'});
+    }
   }
 }
 </script>
@@ -33,21 +43,21 @@ export default {
 .repeat {
     text-align: center;
     text-transform: uppercase;
-    border:solid 2px $button-hover;
+    border:solid 4px white;
     font-weight: bold;
     border-radius: 2em;
     margin-top: 2em;
     padding: 1em 2.6em;
     outline:none;
     font-size: 1.3em;
-    color:$button-hover;
+    color: white;
     background: none;
     cursor: pointer;
     transition: all 0.3s ease 0s;
     &:hover {
-      color: #494949;
+      color: $button-color;
       border-radius: 1em;
-      border-color: #494949;
+      border-color: $button-color;
       transition: all 0.3s ease 0s;
     }
   }

@@ -1,7 +1,6 @@
 <template>
     <div class="quiz-item">
       <h2>{{quiz.title}}</h2>
-      <!-- <button @click="$emit('del-todog')" class="del">x</button> -->
     </div>
 </template>
 
@@ -13,11 +12,9 @@ export default {
 </script>
 
 <style scoped>
-    .todo-item {
-        color:rgb(3, 0, 184);
-        font-weight: bold;
-    }
-    .is-complete {
-        text-decoration: line-through;
-    }
+h2 {
+    font-family: cursive;
+    font-size: 3em;
+}
+
 </style>

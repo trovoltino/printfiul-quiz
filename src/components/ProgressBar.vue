@@ -53,4 +53,22 @@ export default {
   border-bottom: 1px solid rgb(228, 217, 197);
   border-right: 1px solid rgb(119, 89, 34);
 }
+@media (max-width: 480px) {
+.progress-bar{
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  top: 2em;
+  margin:0 auto;
+  width: 15em;
+  height: 1.2em;
+  background: transparent;
+  border: 2px solid orange;
+  border-top-right-radius:15px;
+  border-top-left-radius:15px;
+  border-bottom-right-radius:15px;
+  border-bottom-left-radius:15px;
+}
+}
 </style>

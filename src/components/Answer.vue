@@ -1,8 +1,6 @@
 <template>
     <div class="answer">
       <h2> {{answer.title}}</h2>
-      <h5>{{answer.id}}</h5>
-      
     </div>
 </template>
 
@@ -13,6 +11,31 @@ export default {
 }
 </script>
 
-<style scoped>
-   
+<style lang="scss" scoped>
+.answer {
+  @include flex-column;
+  height: 6.2em;
+}
+h2 {
+ 
+  top: 0.6em;
+}
+@media(max-width: 900px){
+.answer {
+  @include flex-column;
+  height: 4.2em;
+}
+h2 {
+  font-size: 1.2em;
+}
+}
+@media(max-width: 480px){
+.answer {
+  @include flex-column;
+  height: 3.2em;
+}
+h2 {
+  font-size: 1.1em;
+}
+}
 </style>

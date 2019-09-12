@@ -1,6 +1,8 @@
 <template>
   <div class="quiz">
     <div class="quiz-container">
+      <input v-if="!nextStep" v-bind:class="{alert: !nameSubmited}" v-model="name" type="text" name="username" placeholder="How should we call you?">
+      <p class="alert-text" v-if="!nameSubmited" >please provide name before continnuing with quiz</p>
       <button v-if="dataLoaded" class="left" @click="changeQuiz(-1)"></button>
       <transition name="slide">
         <div v-if="dataLoaded" class="quiz-select">
@@ -35,6 +37,9 @@ export default {
       quizToDisplay: 0,
       quizes: [],
       dataLoaded: false,
+      name,
+      nameSubmited: true,
+      nextStep: false
     }
   },
   methods: {
@@ -50,23 +55,29 @@ export default {
     },
     startQuiz(){
       let myProp = this.quizToDisplay;
-      this.$router.replace({name:'questions', params:{quizId:myProp}});
+      this.$router.replace({name:'questions', params:{quizId:myProp, userName: this.name}});
     },
     getQuizes() {
-      return new Promise((resolve, reject)=> {
-      axios.get('https://printful.com/test-quiz.php?action=quizzes')
-        .then(res => {
-          this.quizes = res.data;
-          this.dataLoaded = true;
-          this.quizToDisplay = this.quizes[0].id;
-          resolve();
-          
+      if(this.name){
+        this.nameSubmited = true;
+        this.nextStep = true;
+        return new Promise((resolve, reject)=> {
+          axios.get('https://printful.com/test-quiz.php?action=quizzes')
+          .then(res => {
+            this.quizes = res.data;
+            this.dataLoaded = true;
+            this.quizToDisplay = this.quizes[0].id;
+            resolve();
+          })
+          .catch(err => {
+            console.log(err);
+            reject();
+          })
         })
-        .catch(err => {
-          console.log(err);
-          reject();
-        })
-    })
+      } else {
+        this.nameSubmited = false;
+      }
+      
     }
   }
 }
@@ -84,7 +95,7 @@ export default {
 .quiz-container {
   display: flex;
   align-items: center;
-  background-image: linear-gradient(rgb(228, 146, 69), rgba(230, 172, 80, 0.89));
+  background-image: linear-gradient(rgb(221, 132, 49), rgba(235, 190, 119, 0.89));
   height: 20em;
   width: 30em;
   border-radius: 10%;
@@ -92,6 +103,37 @@ export default {
     width: 80%;
   }
 }
+input {
+  position: absolute;
+  @include center;
+  top:4em;
+  appearance: none;
+  text-align: center;
+  padding: 0.6em 1em;
+  color: white;
+  box-shadow:inset 0px 0px 0px 1px #bee2f9;
+  border:1px solid #f3f3f3;
+  border-radius: 10px;
+  background-color: transparent;
+  outline: none;
+  font-size: 0.9em;
+  &::placeholder {
+    color: rgb(231, 231, 231);
+  }
+}
+.alert-text {
+  position: relative;
+  margin: 0 auto;
+  top: -4em;
+}
+.alert {
+  border:1px solid rgb(255, 91, 91);
+  &::placeholder {
+    color:rgb(117, 30, 30);
+  }
+}
+
+// Buttons section
 .select-btn{
   position: absolute;
   left: 50%;
@@ -118,45 +160,66 @@ export default {
 }
 .left, .right{
   position: relative;
-    border: none;
-    height: 7em;
-    width: 5em;
-    background:$main-grey;
-    cursor: pointer;
-    &:hover {
-      background: $grey-hover;
-    }
-    &:active {
-      background: rgb(139, 139, 139);
-    }
+  border: none;
+  height: 7em;
+  width: 5em;
+  background:rgb(238, 238, 238);
+  cursor: pointer;
+  &:hover {
+    background: $button-color;
   }
-  .left {
-    left: -2.5em;
-    clip-path: polygon(50% 0%, 34% 50%, 50% 100%, 0% 50%);
+  &:active {
+    background: rgb(139, 139, 139);
   }
-  .right {
-    right: -2.5em;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 66% 50%);
-  }
-  .start {
-    text-align: center;
-    text-transform: uppercase;
-    border:solid 2px $button-hover;
-    font-weight: bold;
-    border-radius: 2em;
-    margin-top: 2em;
-    padding: 1em 2.6em;
-    outline:none;
-    font-size: 1.3em;
-    color:$button-hover;
-    background: none;
-    cursor: pointer;
+}
+.left {
+  left: -2.5em;
+  clip-path: polygon(50% 0%, 34% 50%, 50% 100%, 0% 50%);
+}
+.right {
+  right: -2.5em;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 66% 50%);
+}
+.start {
+  text-align: center;
+  text-transform: uppercase;
+  border:solid 4px rgb(238, 238, 238);
+  font-weight: bold;
+  border-radius: 2em;
+  margin-top: 2em;
+  padding: 1em 2.6em;
+  outline:none;
+  font-size: 1.3em;
+  color: rgb(238, 238, 238);
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    color: $button-color;
+    border-radius: 1em;
+    border-color: $button-color;
     transition: all 0.3s ease 0s;
-    &:hover {
-      color: #494949;
-      border-radius: 1em;
-      border-color: #494949;
-      transition: all 0.3s ease 0s;
-    }
   }
+}
+@media(max-width: 600px){
+.quiz-container {
+  height: 14em;
+  width: 24em;
+}
+}
+@media (max-width: 480px) {
+.quiz-container {
+  height: 12em;
+  width: 16em;
+}
+.select-btn {
+  top:70%;
+}
+.right {
+  right: -2em;
+}
+.left {
+  left: -2em;
+}
+}
 </style>
