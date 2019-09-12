@@ -1,7 +1,6 @@
 <template>
   <div class="questions">
     <questioner/>
-    
   </div>
 </template>
 <script>
@@ -12,11 +11,6 @@ export default {
   name: 'home',
   components: {
     Questioner
-  },
-  data() {
-    return{
-      selectedQuiz: 'bestQuiz'
-    }
   }
 }
 </script>

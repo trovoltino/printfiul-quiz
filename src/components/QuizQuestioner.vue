@@ -1,5 +1,10 @@
 <template>
+
 <div class="questions">
+  <div class="progress-bar">
+    <ProgressBar v-if="questions.length>0" ref="progressBar" v-bind:questionCount="this.questions.length"/>
+  </div>
+  
   <div class="question" v-bind:key="question.id" v-for="question in questions">
     <question v-if="questionToDisplay===question.id" v-bind:question="question"/>
   </div>
@@ -14,13 +19,15 @@
 // @ is an alias to /src
 import Question from '@/components/QuizQuestion.vue'
 import Answer from '@/components/Answer.vue'
+import ProgressBar from '@/components/ProgressBar.vue'
 import axios from 'axios';
 
 export default {
   name: 'home',
   components: {
     Question,
-    Answer
+    Answer,
+    ProgressBar
   },
   data() {
     return{
@@ -42,6 +49,8 @@ export default {
       } else {
         this.questionToDisplay = this.questions[this.questionIndex].id;
         this.getAnswers(this.questionToDisplay);
+        this.progressIndex++;
+        this.$refs.progressBar.updateProgressBar();
       }
      
     },
@@ -52,6 +61,7 @@ export default {
           this.questions = res.data;
           this.questionToDisplay = this.questions[0].id;
           this.getAnswers(this.questions[0].id);
+          this.$refs.progressBar.updateProgressBar();
           resolve();
         })
         .then(err => {
@@ -96,10 +106,8 @@ export default {
   color: black;
   
   &::after{
-    
     content: '';
     @include center;
-    
     height: 30em;
     width: 54em;
     border: solid $button-color 2px;
@@ -132,6 +140,11 @@ export default {
       }
     }
   }
+}
+.progress-bar{
+  position: absolute;
+  @include center;
+  top: -25%;
 }
   
 </style>
