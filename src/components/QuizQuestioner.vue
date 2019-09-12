@@ -4,7 +4,6 @@
     <ProgressBar v-if="questions.length>0"  ref="progressBar" v-bind:questionCount="this.questions.length"/>
   </div>
   <div class="questions">
-    
     <div v-bind:class="{invisible: inProgress}" class="question-wrapper">
       <div class="question" v-bind:key="question.id" v-for="question in questions">
         <question v-if="questionToDisplay===question.id" v-bind:question="question"/>
@@ -20,12 +19,11 @@
     </div>
   </div>
 </div>
-
 </template>
 <script>
 // @ is an alias to /src
 import Question from '@/components/QuizQuestion.vue'
-import Answer from '@/components/Answer.vue'
+import Answer from '@/components/QuizAnswer.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
 import axios from 'axios';
 
@@ -182,7 +180,6 @@ export default {
     height: 100%;
   }
 }
-
 }
 @media (max-width: 480px) {
 .questions {

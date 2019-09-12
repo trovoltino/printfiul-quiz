@@ -4,7 +4,6 @@
       <input v-if="!nextStep" v-bind:class="{alert: !nameSubmited}" v-model="name" type="text" name="username" placeholder="How should we call you?">
       <p class="alert-text" v-if="!nameSubmited" >please provide name before continnuing with quiz</p>
       <button v-if="dataLoaded" class="left" @click="changeQuiz(-1)"></button>
-      <transition name="slide">
         <div v-if="dataLoaded" class="quiz-select">
           <div v-bind:key="quiz.id" v-for="quiz in quizes">
             <quiz v-if="quizToDisplay===quiz.id" v-bind:quiz="quiz"/>
@@ -13,7 +12,6 @@
         <div v-else>
           <button class="select-btn" @click="getQuizes">select your quiz?</button>
         </div>
-      </transition>
       <button v-if="dataLoaded" class="right" @click="changeQuiz(+1)"></button>
     </div>
     <button v-if="dataLoaded" @click="startQuiz" class="start">lets go</button>
@@ -77,20 +75,17 @@ export default {
       } else {
         this.nameSubmited = false;
       }
-      
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .quiz {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  
 }
 .quiz-container {
   display: flex;
@@ -139,7 +134,7 @@ input {
   left: 50%;
   transform: translate(-50%,-50%);
   border: none;
-  background: #404040;
+  background: $button-grey;
   color: #ffffff ;
   font-weight: 100;
   padding: 20px;
@@ -149,11 +144,11 @@ input {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   &:hover{
-    color: #404040 ;
+    color: $button-grey ;
     font-weight: 700;
     letter-spacing: 3px;
     background: none;
-    border: 1px solid #404040;
+    border: 1px solid $button-grey;
     box-shadow: 5px 5px 40px -10px rgba(0,0,0,0.87), 15px 10px 40px -20px rgba(0,0,0,0.87);
     transition: all 0.3s ease 0s;
   }
