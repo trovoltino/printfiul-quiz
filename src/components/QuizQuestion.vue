@@ -26,7 +26,14 @@ export default {
 }
 @media(max-width: 900px){
 .question {
-  font-size: 0.8em;
+  font-size: 0.7em;
+  padding: 1em 1.5em;
+}
+}
+@media(max-width: 480px){
+.question {
+  font-size: 0.7em;
+  padding: 1em 1.2em;
 }
 }
 </style>

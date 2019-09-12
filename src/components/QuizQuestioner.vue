@@ -182,6 +182,7 @@ export default {
 }
 @media (max-width: 480px) {
 .questions {
+  top:60%;
   &::after{
     content: '';
     @include center;

@@ -33,4 +33,12 @@ body {
     color: $button-color;
   }
 }
+@media (max-width: 480px){
+body {
+  margin-top: 1em;
+}
+.welcome {
+  font-size: 1.6em;
+}
+}
 </style>

@@ -32,10 +32,10 @@ h2 {
 @media(max-width: 480px){
 .answer {
   @include flex-column;
-  height: 3.2em;
+  height: 2.2em;
 }
 h2 {
-  font-size: 1.1em;
+  font-size: 0.9em;
 }
 }
 </style>

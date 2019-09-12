@@ -16,5 +16,9 @@ h2 {
     font-family: cursive;
     font-size: 3em;
 }
-
+@media (max-width: 480px){
+h2 {
+  font-size: 2.1em;
+}
+}
 </style>
