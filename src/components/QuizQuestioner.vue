@@ -125,11 +125,10 @@ export default {
     background: rgba($color: #a3a3a3, $alpha: 0.4)
   }
   .question-wrapper {
-    min-width: 42em;
+    max-width: 42em;
     margin-bottom: 0.8em;
   }
   .question {
-    min-width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;

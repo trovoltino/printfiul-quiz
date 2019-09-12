@@ -2,7 +2,7 @@
   <div class="quiz">
     <div class="quiz-container">
       <input v-if="!nextStep" v-bind:class="{alert: !nameSubmited}" v-model="name" type="text" name="username" placeholder="How should we call you?">
-      <p class="alert-text" v-if="!nameSubmited" >please provide name before continnuing with quiz</p>
+      <p class="alert-text" v-if="!nameSubmited" >please provide your name</p>
       <button v-if="dataLoaded" class="left" @click="changeQuiz(-1)"></button>
         <div v-if="dataLoaded" class="quiz-select">
           <div v-bind:key="quiz.id" v-for="quiz in quizes">
@@ -200,6 +200,10 @@ input {
 .quiz-container {
   height: 14em;
   width: 24em;
+}
+.alert-text{
+  position: relative;
+  top: -0.2em;
 }
 }
 @media (max-width: 480px) {
