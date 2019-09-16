@@ -17,9 +17,9 @@ export default {
   height: 6.2em;
 }
 h2 {
- 
   top: 0.6em;
 }
+
 @media(max-width: 900px){
 .answer {
   @include flex-column;

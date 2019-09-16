@@ -6,7 +6,9 @@
       <button v-if="dataLoaded" class="left" @click="changeQuiz(-1)"></button>
         <div v-if="dataLoaded" class="quiz-select">
           <div v-bind:key="quiz.id" v-for="quiz in quizes">
-            <quiz v-if="quizToDisplay===quiz.id" v-bind:quiz="quiz"/>
+            <transition name="fade" mode="out-in" >
+              <quiz class="quiz-item" v-if="quizToDisplay===quiz.id" v-bind:quiz="quiz"/>
+            </transition>
           </div>
         </div>
         <div v-else>
@@ -196,6 +198,21 @@ input {
     transition: all 0.3s ease 0s;
   }
 }
+.quiz-item {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+// Animation
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0;
+}
+// End animation
+
 @media(max-width: 600px){
 .quiz-container {
   height: 14em;

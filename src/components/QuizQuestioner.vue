@@ -6,14 +6,13 @@
   <div class="questions">
     <div v-bind:class="{invisible: inProgress}" class="question-wrapper">
       <div class="question" v-bind:key="question.id" v-for="question in questions">
-        <question v-if="questionToDisplay===question.id" v-bind:question="question"/>
+        <question class="fade-in delay" v-if="questionToDisplay===question.id" v-bind:question="question"/>
       </div>
     </div>
-    
     <div class="answers-container">
       <div class="answers">
         <div v-bind:key="answer.id" v-for="answer in answers" @click="addAnswer(answer.id)">
-          <answer class="answer" v-bind:answer="answer"/>
+          <answer class="fade-in" v-bind:answer="answer"/>
         </div>
       </div>
     </div>
@@ -158,6 +157,40 @@ export default {
 .invisible {
   visibility: hidden;
 }
+
+// Animation
+@keyframes fade-in {
+0% {
+  opacity: 0;
+    transform: translate(10%, 0%);
+}
+
+100% {
+    opacity: 1;
+    transform: translate(0%, 0%);
+}
+}
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+}
+.fade-in.delay {animation-delay: 0, 0.5s;}
+
+.slide-leave-active,
+.slide-enter-active {
+  transition: 1s;
+}
+.slide-enter {
+  transform: translate(100%, -50%);
+  opacity: 1;
+}
+.slide-leave-to {
+  transform: translate(-100%, -50%);
+  opacity: 0;
+}
+// End animation
 
 @media (max-width: 900px) {
 .questions {
